@@ -4,8 +4,17 @@ import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesReposit
 class MemoryCategoriesRepository implements ICategoriesRepository {
   private categories: Category[]
 
-  constructor() {
+  private static INSTANCE: MemoryCategoriesRepository
+
+  private constructor() {
     this.categories = []
+  }
+
+  public static getInstance(): MemoryCategoriesRepository {
+    if (!MemoryCategoriesRepository.INSTANCE) {
+      MemoryCategoriesRepository.INSTANCE = new MemoryCategoriesRepository()
+    }
+    return MemoryCategoriesRepository.INSTANCE
   }
 
   create({ name, description }: ICreateCategoryDTO): void {
