@@ -1,6 +1,4 @@
-import {
-  Column, Entity, PrimaryColumn, CreateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryColumn, CreateDateColumn } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
 @Entity('categories')

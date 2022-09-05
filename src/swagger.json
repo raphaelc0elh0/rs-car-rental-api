@@ -11,7 +11,9 @@
   "paths": {
     "/categories": {
       "post": {
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "summary": "Create a category",
         "description": "Create a new category",
         "requestBody": {
@@ -20,47 +22,50 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name":{
-                    "type":  "string"
+                  "name": {
+                    "type": "string"
                   },
-                  "description":{
+                  "description": {
                     "type": "string"
                   }
                 },
                 "example": {
                   "name": "SUV",
-                  "category": "A SUV category"
+                  "description": "A SUV category"
                 }
               }
             }
-            
           }
         },
         "responses": {
           "201": {
             "description": "Created"
           },
-          "400":{ "description": "Category already exists"}
+          "400": {
+            "description": "Category already exists"
+          }
         }
       },
       "get": {
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "summary": "List all categories",
         "description": "List all categories",
         "responses": {
           "200": {
             "description": "Success",
             "content": {
-              "application/json":{
-                "schema":{
+              "application/json": {
+                "schema": {
                   "type": "array",
                   "items": {
                     "type": "object",
                     "properties": {
-                      "name":{
+                      "name": {
                         "type": "string"
                       },
-                      "description":{
+                      "description": {
                         "type": "string"
                       }
                     }
@@ -69,6 +74,80 @@
               }
             }
           }
+        }
+      }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Upload new categories",
+        "description": "Upload new categories",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": [
+          "Specifications"
+        ],
+        "summary": "Create new specification",
+        "description": "Create new specification",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Specification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Specification already exists"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Specification": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Câmbio manual",
+          "description": "Carro de câmbio manual"
         }
       }
     }
