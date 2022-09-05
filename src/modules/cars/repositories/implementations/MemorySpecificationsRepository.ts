@@ -4,17 +4,8 @@ import { ICreateSpecificationDTO, ISpecificationsRepository } from "../ISpecific
 class MemorySpecificationsRepository implements ISpecificationsRepository {
   private specifications: Specification[]
 
-  private static INSTANCE: MemorySpecificationsRepository
-
-  private constructor() {
+  constructor() {
     this.specifications = []
-  }
-
-  public static getInstance(): MemorySpecificationsRepository {
-    if (!MemorySpecificationsRepository.INSTANCE) {
-      MemorySpecificationsRepository.INSTANCE = new MemorySpecificationsRepository()
-    }
-    return MemorySpecificationsRepository.INSTANCE
   }
 
   create({ name, description }: ICreateSpecificationDTO): void {

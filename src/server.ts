@@ -1,9 +1,12 @@
+import "reflect-metadata"
+
 import express, { json } from "express"
 import { routes } from "./routes"
 
 // typeorm
-import "reflect-metadata"
 import './database'
+
+import './shared/container'
 
 // swagger
 import swaggerUi from 'swagger-ui-express'
