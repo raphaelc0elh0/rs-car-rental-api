@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from 'jsonwebtoken'
-import { PostgresUsersRepository } from "../repositories/implementations/PostgresUsersRepository";
+import { AppError } from "../errors/AppError";
+import { PostgresUsersRepository } from "../modules/accounts/repositories/implementations/PostgresUsersRepository";
 
 interface IPayload {
   sub: string
@@ -10,7 +11,7 @@ export const ensureAuthenticated = async (request: Request, response: Response, 
   const authHeader = request.headers.authorization
 
   if (!authHeader) {
-    throw new Error("Token missing")
+    throw new AppError("Token missing", 401)
   }
 
   const token = authHeader.split(" ")[1]
@@ -22,11 +23,11 @@ export const ensureAuthenticated = async (request: Request, response: Response, 
 
     const user = await usersRepository.findById(user_id)
     if (!user) {
-      throw new Error("User not found");
+      throw new AppError("User not found", 401);
     }
 
   } catch {
-    throw new Error("Invalid token")
+    throw new AppError("Invalid token", 401)
   }
 
   next()
