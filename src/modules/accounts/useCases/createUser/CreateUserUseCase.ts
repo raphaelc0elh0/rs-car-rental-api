@@ -9,14 +9,14 @@ class CreateUserUseCase {
     private usersRepository: IUsersRepository
   ) { }
 
-  async execute({ name, username, password, email, driver_license }: ICreateUserDTO): Promise<void> {
+  async execute({ name, password, email, driver_license }: ICreateUserDTO): Promise<void> {
     // const userAlreadyExists = await this.usersRepository.findByName(name)
 
     // if (userAlreadyExists) {
     //   throw new Error('User already exists')
     // }
 
-    await this.usersRepository.create({ name, username, password, email, driver_license })
+    await this.usersRepository.create({ name, password, email, driver_license })
   }
 }
 
