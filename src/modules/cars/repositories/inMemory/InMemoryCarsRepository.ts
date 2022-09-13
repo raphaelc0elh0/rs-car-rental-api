@@ -1,4 +1,5 @@
-import { ICreateCarDTO } from "../../dtos/ICreateCarDTO";
+import { ICreateCarDTO } from "../../dtos/cars/ICreateCarDTO";
+import { IFindAvailableDTO } from "../../dtos/cars/IFindAvailableDTO";
 import { Car } from "../../infra/typeorm/entities/Car";
 import { ICarsRepository } from "../ICarsRepository";
 
@@ -29,6 +30,22 @@ class InMemoryCarsRepository implements ICarsRepository {
     this.cars.push(car);
 
     return car;
+  }
+
+  async findAvailable(data?: IFindAvailableDTO): Promise<Car[]> {
+    const cars = this.cars
+      .filter((car) => !!car.available)
+      .filter((car) => {
+        if (data) {
+          return (
+            (data.brand && car.brand === data.brand) ||
+            (data.category_id && car.category_id === data.category_id) ||
+            (data.name && car.name === data.name)
+          );
+        }
+        return true;
+      });
+    return cars;
   }
 
   async findByLicensePlate(license_plate: string): Promise<Car> {
