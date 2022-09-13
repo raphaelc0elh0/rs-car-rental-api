@@ -4,15 +4,24 @@
 
 ### **RF** (Requisitos Funcionais)
 
-- [ ] Deve ser possível cadastrar um novo carro
-- [ ] Deve ser possível listar todas as categorias
+- [x] Deve ser possível cadastrar um novo carro
 
 ### **RN** (Regras de Negócio)
 
-- [ ] Somente administradores podem cadastrar carros
-- [ ] Não deve ser possível cadastrar um carro com uma placa já existente
+- [x] Não deve ser possível cadastrar um carro com uma placa já existente
+- [x] Deve ser cadastrado como disponível por padrão
+- [ ] Somente administradores podem cadastrar carros (Controller)
+
+## Alteração
+
+### **RF** (Requisitos Funcionais)
+
+- [ ] Deve ser possível alterar um novo carro
+
+### **RN** (Regras de Negócio)
+
+- [ ] Somente administradores podem alterar carros
 - [ ] Não deve ser possível alterar a placa de um carro já cadastrado
-- [ ] Deve ser cadastrado como disponível por padrão
 
 ## Listagem
 
