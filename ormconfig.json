@@ -5,9 +5,9 @@
   "username": "docker",
   "password": "docker",
   "database": "rs-rental-car-db",
-  "migrations": ["./src/shared/infra/http/typeorm/migrations/*.ts"],
+  "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
   "entities": ["./**/modules/**/typeorm/entities/*.ts"],
   "cli": {
-    "migrationsDir": "./src/shared/infra/http/typeorm/migrations"
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
   }
 }

@@ -11,7 +11,7 @@ import "express-async-errors";
 // routes
 import { routes } from "./routes";
 // typeorm
-import "./typeorm";
+import "../typeorm";
 // tsyringe container
 import "../../container";
 
