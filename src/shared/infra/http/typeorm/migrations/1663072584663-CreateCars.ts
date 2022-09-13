@@ -15,7 +15,7 @@ export class CreateCars1663072584663 implements MigrationInterface {
           { name: "fine_amount", type: "numeric" },
           { name: "brand", type: "varchar" },
           { name: "category_id", type: "uuid", isNullable: true },
-          { name: "createAt", type: "timestamp", default: "now()" },
+          { name: "created_at", type: "timestamp", default: "now()" },
         ],
         foreignKeys: [
           {
