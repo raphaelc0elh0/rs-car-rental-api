@@ -10,11 +10,11 @@ const usersRoutes = Router();
 const uploadAvatar = multer(uploadConfig("./tmp/avatar"));
 
 const createUserController = new CreateUserController();
-usersRoutes.post("/", createUserController.handle);
+usersRoutes.post("/users", createUserController.handle);
 
 const updateUserAvatarController = new UpdateUserAvatarController();
 usersRoutes.patch(
-  "/avatar",
+  "/users/avatar",
   ensureAuthenticated,
   uploadAvatar.single("avatar"),
   updateUserAvatarController.handle
