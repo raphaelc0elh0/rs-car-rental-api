@@ -10,7 +10,7 @@
 
 - [x] Não deve ser possível cadastrar um carro com uma placa já existente
 - [x] Deve ser cadastrado como disponível por padrão
-- [ ] Somente administradores podem cadastrar carros (Controller)
+- [x] Somente administradores podem cadastrar carros (Controller)
 
 ## Alteração
 
