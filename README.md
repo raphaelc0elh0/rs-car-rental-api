@@ -40,13 +40,13 @@
 
 ### **RF** (Requisitos Funcionais)
 
-- [ ] Deve ser possível cadastrar uma especificação para um carro
+- [x] Deve ser possível cadastrar uma especificação para um carro
 
 ### **RN** (Regras de Negócio)
 
-- [ ] Não deve ser possível cadastrar uma especificação para um carro não cadastrado
+- [x] Não deve ser possível cadastrar uma especificação para um carro não cadastrado
 - [ ] Não deve ser possível cadastrar a mesma especificação para o mesmo carro
-- [ ] Somente administradores podem cadastrar especificações
+- [x] Somente administradores podem cadastrar especificações
 
 ## Listagem de especificações no carro
 
