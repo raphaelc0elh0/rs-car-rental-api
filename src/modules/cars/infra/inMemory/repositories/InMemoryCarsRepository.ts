@@ -1,7 +1,7 @@
-import { ICreateCarDTO } from "../../dtos/cars/ICreateCarDTO";
-import { IFindAvailableDTO } from "../../dtos/cars/IFindAvailableDTO";
-import { Car } from "../../infra/typeorm/entities/Car";
-import { ICarsRepository } from "../ICarsRepository";
+import { ICreateCarDTO } from "../../../dtos/cars/ICreateCarDTO";
+import { IFindAvailableDTO } from "../../../dtos/cars/IFindAvailableDTO";
+import { ICarsRepository } from "../../../repositories/ICarsRepository";
+import { Car } from "../../typeorm/entities/Car";
 
 class InMemoryCarsRepository implements ICarsRepository {
   cars: Car[] = [];

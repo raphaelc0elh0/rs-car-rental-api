@@ -1,5 +1,5 @@
 import { AppError } from "../../../../shared/errors/AppError";
-import { InMemoryUsersRepository } from "../../repositories/inMemory/InMemoryUsersRepository";
+import { InMemoryUsersRepository } from "../../infra/inMemory/repositories/InMemoryUsersRepository";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
