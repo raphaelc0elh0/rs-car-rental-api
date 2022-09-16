@@ -13,6 +13,8 @@ import { ISpecificationsRepository } from "../../modules/cars/repositories/ISpec
 import { PostgresRentalsRepository } from "../../modules/rentals/infra/typeorm/repositories/PostgresRentalsRepository";
 import { IRentalsRepository } from "../../modules/rentals/repositories/IRentalsRepository";
 
+import "./providers";
+
 // IUsersRepository
 container.registerSingleton<IUsersRepository>(
   "PostgresUsersRepository",
