@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { AppError } from "../../../../../shared/errors/AppError";
 import { Rental } from "../../../infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "../../../repositories/IRentalsRepository";
@@ -16,6 +18,8 @@ class CreateRentalUseCase {
     car_id,
     expected_return_date,
   }: IRequest): Promise<Rental> {
+    const minimumExpectedReturnTimeDiff = 24; // hours
+
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
       car_id
     );
@@ -25,6 +29,13 @@ class CreateRentalUseCase {
       await this.rentalsRepository.findOpenRentalByUser(user_id);
     if (userAlreadyHasRental)
       throw new AppError("User already has a rental ongoing");
+
+    const expectReturnDateFormatted = dayjs(expected_return_date).format();
+    const dateNow = dayjs().format();
+    const compare = dayjs(expectReturnDateFormatted).diff(dateNow, "hours");
+
+    if (compare < minimumExpectedReturnTimeDiff)
+      throw new AppError("Invalid return time");
 
     const rental = await this.rentalsRepository.create({
       user_id,

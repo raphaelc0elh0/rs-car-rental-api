@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { AppError } from "../../../../../shared/errors/AppError";
 import { InMemoryRentalsRepository } from "../../../infra/inMemory/repositories/InMemoryRentalsRepository";
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
@@ -8,7 +10,7 @@ let inMemoryRentalsRepository: InMemoryRentalsRepository;
 const mockedRentalInput = {
   user_id: "user_id",
   car_id: "car_id",
-  expected_return_date: new Date(),
+  expected_return_date: dayjs().add(1, "day").toDate(),
 };
 
 describe("createRentalUseCase", () => {
@@ -51,6 +53,17 @@ describe("createRentalUseCase", () => {
         ...mockedRentalInput,
         car_id: "car_id2",
         user_id: "user_id",
+      });
+    } catch (error) {
+      expect(error).toBeInstanceOf(AppError);
+    }
+  });
+
+  it("should not be able to create rental when expected_return_date is before 24hrs from start_date", async () => {
+    try {
+      await createRentalUseCase.execute({
+        ...mockedRentalInput,
+        expected_return_date: dayjs().add(23, "hours").toDate(),
       });
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
