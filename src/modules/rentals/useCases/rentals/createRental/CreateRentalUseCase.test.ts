@@ -1,11 +1,13 @@
 import dayjs from "dayjs";
 
+import { DayjsDateProvider } from "../../../../../shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "../../../../../shared/errors/AppError";
 import { InMemoryRentalsRepository } from "../../../infra/inMemory/repositories/InMemoryRentalsRepository";
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 let createRentalUseCase: CreateRentalUseCase;
 let inMemoryRentalsRepository: InMemoryRentalsRepository;
+let dateProvider: DayjsDateProvider;
 
 const mockedRentalInput = {
   user_id: "user_id",
@@ -16,7 +18,11 @@ const mockedRentalInput = {
 describe("createRentalUseCase", () => {
   beforeEach(() => {
     inMemoryRentalsRepository = new InMemoryRentalsRepository();
-    createRentalUseCase = new CreateRentalUseCase(inMemoryRentalsRepository);
+    dateProvider = new DayjsDateProvider();
+    createRentalUseCase = new CreateRentalUseCase(
+      inMemoryRentalsRepository,
+      dateProvider
+    );
   });
 
   it("should be able to create rental", async () => {

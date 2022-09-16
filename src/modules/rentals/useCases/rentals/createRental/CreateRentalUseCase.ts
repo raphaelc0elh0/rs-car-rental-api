@@ -1,5 +1,4 @@
-import dayjs from "dayjs";
-
+import { IDateProvider } from "../../../../../shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "../../../../../shared/errors/AppError";
 import { Rental } from "../../../infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "../../../repositories/IRentalsRepository";
@@ -11,7 +10,10 @@ interface IRequest {
 }
 
 class CreateRentalUseCase {
-  constructor(private rentalsRepository: IRentalsRepository) {}
+  constructor(
+    private rentalsRepository: IRentalsRepository,
+    private dateProvider: IDateProvider
+  ) {}
 
   async execute({
     user_id,
@@ -30,10 +32,10 @@ class CreateRentalUseCase {
     if (userAlreadyHasRental)
       throw new AppError("User already has a rental ongoing");
 
-    const expectReturnDateFormatted = dayjs(expected_return_date).format();
-    const dateNow = dayjs().format();
-    const compare = dayjs(expectReturnDateFormatted).diff(dateNow, "hours");
-
+    const compare = await this.dateProvider.compareInHours(
+      new Date(),
+      expected_return_date
+    );
     if (compare < minimumExpectedReturnTimeDiff)
       throw new AppError("Invalid return time");
 
