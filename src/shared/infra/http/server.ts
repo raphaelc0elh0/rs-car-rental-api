@@ -14,6 +14,7 @@ import "express-async-errors";
 import { routes } from "./routes";
 // tsyringe container
 import "../../container";
+import "../../container/providers";
 
 createConnection().catch((error) => console.log(error));
 const port = 3333;

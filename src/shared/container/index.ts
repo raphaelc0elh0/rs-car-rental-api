@@ -10,6 +10,8 @@ import { ICarsImagesRepository } from "../../modules/cars/repositories/ICarsImag
 import { ICarsRepository } from "../../modules/cars/repositories/ICarsRepository";
 import { ICategoriesRepository } from "../../modules/cars/repositories/ICategoriesRepository";
 import { ISpecificationsRepository } from "../../modules/cars/repositories/ISpecificationsRepository";
+import { PostgresRentalsRepository } from "../../modules/rentals/infra/typeorm/repositories/PostgresRentalsRepository";
+import { IRentalsRepository } from "../../modules/rentals/repositories/IRentalsRepository";
 
 // IUsersRepository
 container.registerSingleton<IUsersRepository>(
@@ -39,4 +41,10 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<ISpecificationsRepository>(
   "PostgresSpecificationsRepository",
   PostgresSpecificationsRepository
+);
+
+// IRentalsRepository
+container.registerSingleton<IRentalsRepository>(
+  "PostgresRentalsRepository",
+  PostgresRentalsRepository
 );
