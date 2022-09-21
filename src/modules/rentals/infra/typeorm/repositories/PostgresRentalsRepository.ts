@@ -17,9 +17,17 @@ class PostgresRentalsRepository implements IRentalsRepository {
     return rental;
   }
 
+  async findById(id: string): Promise<Rental> {
+    const rental = await this.repository.findOne({
+      id,
+    });
+
+    return rental;
+  }
+
   async findOpenRentalByCar(car_id: string): Promise<Rental> {
     const rental = await this.repository.findOne({
-      car_id,
+      where: { car_id, end_date: null },
     });
 
     return rental;
@@ -27,7 +35,7 @@ class PostgresRentalsRepository implements IRentalsRepository {
 
   async findOpenRentalByUser(user_id: string): Promise<Rental> {
     const rental = await this.repository.findOne({
-      user_id,
+      where: { user_id, end_date: null },
     });
 
     return rental;
