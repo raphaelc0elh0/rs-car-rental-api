@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { IDateProvider } from "../../../../../shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "../../../../../shared/errors/AppError";
+import { ICarsRepository } from "../../../../cars/repositories/ICarsRepository";
 import { Rental } from "../../../infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "../../../repositories/IRentalsRepository";
 
@@ -16,6 +17,8 @@ class CreateRentalUseCase {
   constructor(
     @inject("PostgresRentalsRepository")
     private rentalsRepository: IRentalsRepository,
+    @inject("PostgresCarsRepository")
+    private carsRepository: ICarsRepository,
     @inject("DayjsDateProvider")
     private dateProvider: IDateProvider
   ) {}
@@ -49,6 +52,10 @@ class CreateRentalUseCase {
       car_id,
       expected_return_date,
     });
+
+    if (rental) {
+      await this.carsRepository.changeAvailable(car_id, false);
+    }
 
     return rental;
   }

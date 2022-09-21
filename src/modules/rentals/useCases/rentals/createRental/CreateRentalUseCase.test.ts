@@ -2,10 +2,12 @@ import dayjs from "dayjs";
 
 import { DayjsDateProvider } from "../../../../../shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "../../../../../shared/errors/AppError";
+import { InMemoryCarsRepository } from "../../../../cars/infra/inMemory/repositories/InMemoryCarsRepository";
 import { InMemoryRentalsRepository } from "../../../infra/inMemory/repositories/InMemoryRentalsRepository";
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 let createRentalUseCase: CreateRentalUseCase;
+let inMemoryCarsRepository: InMemoryCarsRepository;
 let inMemoryRentalsRepository: InMemoryRentalsRepository;
 let dateProvider: DayjsDateProvider;
 
@@ -15,17 +17,31 @@ const mockedRentalInput = {
   expected_return_date: dayjs().add(1, "day").toDate(),
 };
 
+const mockedCar = {
+  id: mockedRentalInput.car_id,
+  name: "Car",
+  description: "Car Description",
+  daily_rate: 100,
+  license_plate: "ABCD-1234",
+  fine_amount: 10,
+  brand: "Car Brand",
+  category_id: "category_id",
+};
+
 describe("createRentalUseCase", () => {
   beforeEach(() => {
+    inMemoryCarsRepository = new InMemoryCarsRepository();
     inMemoryRentalsRepository = new InMemoryRentalsRepository();
     dateProvider = new DayjsDateProvider();
     createRentalUseCase = new CreateRentalUseCase(
       inMemoryRentalsRepository,
+      inMemoryCarsRepository,
       dateProvider
     );
   });
 
   it("should be able to create rental", async () => {
+    await inMemoryCarsRepository.create(mockedCar);
     const rental = await createRentalUseCase.execute(mockedRentalInput);
     expect(rental).toHaveProperty("id");
     expect(rental).toHaveProperty("start_date");
@@ -33,6 +49,7 @@ describe("createRentalUseCase", () => {
 
   it("should not be able to create rental when car is unavailable", async () => {
     try {
+      await inMemoryCarsRepository.create(mockedCar);
       await createRentalUseCase.execute({
         ...mockedRentalInput,
         car_id: "car_id",
@@ -50,6 +67,8 @@ describe("createRentalUseCase", () => {
 
   it("should not be able to create rental when user has another rental ongoing", async () => {
     try {
+      await inMemoryCarsRepository.create({ ...mockedCar, id: "car_id1" });
+      await inMemoryCarsRepository.create({ ...mockedCar, id: "car_id2" });
       await createRentalUseCase.execute({
         ...mockedRentalInput,
         car_id: "car_id1",
@@ -74,5 +93,13 @@ describe("createRentalUseCase", () => {
     } catch (error) {
       expect(error).toBeInstanceOf(AppError);
     }
+  });
+
+  it("should be able to change car availability after rental creation", async () => {
+    await inMemoryCarsRepository.create(mockedCar);
+    await createRentalUseCase.execute(mockedRentalInput);
+
+    const car = await inMemoryCarsRepository.findById(mockedRentalInput.car_id);
+    expect(car.available).toBe(false);
   });
 });
