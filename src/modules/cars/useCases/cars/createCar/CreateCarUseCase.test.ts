@@ -47,7 +47,7 @@ describe("CreateCarUseCase", () => {
       await createCarUseCase.execute(carOne);
       await createCarUseCase.execute(carTwo);
     } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
+      expect(error).toEqual(new AppError("Car already exists!"));
     }
   });
 

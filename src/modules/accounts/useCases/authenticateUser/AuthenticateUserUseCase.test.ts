@@ -39,7 +39,7 @@ describe("AuthenticateUserUseCase", () => {
         password: "password",
       });
     } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
+      expect(error).toEqual(new AppError("Email or password incorrect"));
     }
   });
 
@@ -58,7 +58,7 @@ describe("AuthenticateUserUseCase", () => {
         password: "password1",
       });
     } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
+      expect(error).toEqual(new AppError("Email or password incorrect"));
     }
   });
 });

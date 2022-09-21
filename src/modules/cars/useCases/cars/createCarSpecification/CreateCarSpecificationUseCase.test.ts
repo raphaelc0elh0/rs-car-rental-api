@@ -56,7 +56,7 @@ describe("CreateCarSpecificationUseCase", () => {
         specifications_id: ["specifications_id"],
       });
     } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
+      expect(error).toEqual(new AppError("Car does not exist"));
     }
   });
 });

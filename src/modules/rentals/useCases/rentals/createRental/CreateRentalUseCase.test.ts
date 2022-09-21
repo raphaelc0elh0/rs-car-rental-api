@@ -61,7 +61,7 @@ describe("createRentalUseCase", () => {
         user_id: "user_id2",
       });
     } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
+      expect(error).toEqual(new AppError("Car is unavailable"));
     }
   });
 
@@ -80,7 +80,7 @@ describe("createRentalUseCase", () => {
         user_id: "user_id",
       });
     } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
+      expect(error).toEqual(new AppError("User already has a rental ongoing"));
     }
   });
 
@@ -91,7 +91,7 @@ describe("createRentalUseCase", () => {
         expected_return_date: dayjs().add(23, "hours").toDate(),
       });
     } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
+      expect(error).toEqual(new AppError("Invalid return time"));
     }
   });
 
