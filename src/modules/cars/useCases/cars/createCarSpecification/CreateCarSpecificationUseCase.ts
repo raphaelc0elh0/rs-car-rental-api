@@ -13,9 +13,9 @@ interface IRequest {
 @injectable()
 class CreateCarSpecificationUseCase {
   constructor(
-    @inject("PostgresCarsRepository")
+    @inject("CarsRepository")
     private carsRepository: ICarsRepository,
-    @inject("PostgresSpecificationsRepository")
+    @inject("SpecificationsRepository")
     private specificationsRepository: ISpecificationsRepository
   ) {}
 

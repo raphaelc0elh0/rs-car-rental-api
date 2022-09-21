@@ -1,7 +1,8 @@
 interface IDateProvider {
-  compareInHours(start_date: Date, end_date: Date): Promise<number>;
-  compareInDays(start_date: Date, end_date: Date): Promise<number>;
-  convertToUTC(date: Date): Promise<string>;
+  compareInHours(start_date: Date, end_date: Date): number;
+  compareInDays(start_date: Date, end_date: Date): number;
+  convertToUTC(date: Date): string;
+  addSecondsToDate(date: Date, seconds: number): Date;
 }
 
 export { IDateProvider };

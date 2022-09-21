@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
-import { PostgresUsersRepository } from "../../../../modules/accounts/infra/typeorm/repositories/implementations/PostgresUsersRepository";
+import { authConfig } from "../../../../config/authConfig";
+import { PostgresUserTokensRepository } from "../../../../modules/accounts/infra/typeorm/repositories/implementations/PostgresUserTokensRepository";
 import { AppError } from "../../../errors/AppError";
 
 interface IPayload {
@@ -24,12 +25,15 @@ export const ensureAuthenticated = async (
   try {
     const { sub: user_id } = verify(
       token,
-      "80ba3295fca2cd4d4300d4214706b268"
+      authConfig.secret_refresh_token
     ) as IPayload;
 
-    const usersRepository = new PostgresUsersRepository();
+    const userTokensRepository = new PostgresUserTokensRepository();
 
-    const user = await usersRepository.findById(user_id);
+    const user = await userTokensRepository.findByUserIdAndRefreshToken(
+      user_id,
+      token
+    );
     if (!user) {
       throw new AppError("User not found", 401);
     }

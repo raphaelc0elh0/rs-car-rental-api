@@ -6,20 +6,25 @@ import { IDateProvider } from "../IDateProvider";
 dayjs.extend(utc);
 
 class DayjsDateProvider implements IDateProvider {
-  async compareInHours(start_date: Date, end_date: Date): Promise<number> {
-    const startDateFormatted = await this.convertToUTC(start_date);
-    const endDateFormatted = await this.convertToUTC(end_date);
+  compareInHours(start_date: Date, end_date: Date): number {
+    const startDateFormatted = this.convertToUTC(start_date);
+    const endDateFormatted = this.convertToUTC(end_date);
     return dayjs(endDateFormatted).diff(startDateFormatted, "hours");
   }
 
-  async compareInDays(start_date: Date, end_date: Date): Promise<number> {
-    const startDateFormatted = await this.convertToUTC(start_date);
-    const endDateFormatted = await this.convertToUTC(end_date);
+  compareInDays(start_date: Date, end_date: Date): number {
+    const startDateFormatted = this.convertToUTC(start_date);
+    const endDateFormatted = this.convertToUTC(end_date);
     return dayjs(endDateFormatted).diff(startDateFormatted, "days");
   }
 
-  async convertToUTC(date: Date): Promise<string> {
+  convertToUTC(date: Date): string {
     return dayjs(date).utc().local().format();
+  }
+
+  addSecondsToDate(date: Date, seconds: number): Date {
+    const formattedDate = this.convertToUTC(date);
+    return dayjs(formattedDate).add(seconds, "seconds").toDate();
   }
 }
 

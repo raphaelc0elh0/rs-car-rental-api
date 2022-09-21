@@ -14,11 +14,11 @@ interface IRequest {
 @injectable()
 class ReturnRentalUseCase {
   constructor(
-    @inject("PostgresRentalsRepository")
+    @inject("RentalsRepository")
     private rentalsRepository: IRentalsRepository,
-    @inject("PostgresCarsRepository")
+    @inject("CarsRepository")
     private carsRepository: ICarsRepository,
-    @inject("DayjsDateProvider")
+    @inject("DateProvider")
     private dateProvider: IDateProvider
   ) {}
 
@@ -32,16 +32,13 @@ class ReturnRentalUseCase {
     }
 
     // get days difference (rented and exceeded)
-    let daily = await this.dateProvider.compareInDays(
-      rental.start_date,
-      new Date()
-    );
+    let daily = this.dateProvider.compareInDays(rental.start_date, new Date());
 
     if (daily <= 0) {
       daily = minimum_daily;
     }
 
-    const delay = await this.dateProvider.compareInDays(
+    const delay = this.dateProvider.compareInDays(
       new Date(),
       rental.expected_return_date
     );

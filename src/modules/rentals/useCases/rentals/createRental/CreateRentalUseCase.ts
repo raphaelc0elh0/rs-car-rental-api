@@ -15,11 +15,11 @@ interface IRequest {
 @injectable()
 class CreateRentalUseCase {
   constructor(
-    @inject("PostgresRentalsRepository")
+    @inject("RentalsRepository")
     private rentalsRepository: IRentalsRepository,
-    @inject("PostgresCarsRepository")
+    @inject("CarsRepository")
     private carsRepository: ICarsRepository,
-    @inject("DayjsDateProvider")
+    @inject("DateProvider")
     private dateProvider: IDateProvider
   ) {}
 
@@ -40,7 +40,7 @@ class CreateRentalUseCase {
     if (userAlreadyHasRental)
       throw new AppError("User already has a rental ongoing");
 
-    const compare = await this.dateProvider.compareInHours(
+    const compare = this.dateProvider.compareInHours(
       new Date(),
       expected_return_date
     );
