@@ -4,7 +4,7 @@
   "host": "localhost",
   "username": "docker",
   "password": "docker",
-  "database": "rs-rental-car-db",
+  "database": "rs-rentx-db",
   "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
   "entities": ["./**/modules/**/typeorm/entities/*.ts"],
   "cli": {
