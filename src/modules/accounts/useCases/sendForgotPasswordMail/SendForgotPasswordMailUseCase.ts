@@ -1,5 +1,6 @@
 // interface IRequest{
 
+import path from "path";
 import { inject, injectable } from "tsyringe";
 import { v4 as uuidV4 } from "uuid";
 
@@ -36,10 +37,23 @@ class SendForgotPasswordMailUseCase {
       expires_date: this.dateProvider.addSecondsToDate(new Date(), 60 * 60 * 3), // 3 hours
     });
 
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_PASSWORD_URL}${token}`,
+    };
+
     await this.mailProvider.sendMail(
       email,
       "Recuperação de Senha",
-      `O link para o reset é ${token}`
+      variables,
+      path.resolve(
+        __dirname,
+        "..",
+        "..",
+        "views",
+        "emails",
+        "forgotPassword.hbs"
+      )
     );
   }
 }
