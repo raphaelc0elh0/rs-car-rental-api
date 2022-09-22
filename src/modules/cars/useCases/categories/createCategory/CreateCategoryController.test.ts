@@ -30,7 +30,7 @@ describe("CreateCategoryController", () => {
       password: "admin",
     });
 
-    token = responseToken.body.token;
+    token = responseToken.body.refresh_token;
   });
 
   afterAll(async () => {
@@ -52,7 +52,7 @@ describe("CreateCategoryController", () => {
 
   it("should not be able to create a duplicated category", async () => {
     const duplicatedCategory = {
-      name: "Categories Test",
+      name: "Categories Test2",
       description: "Categories Description",
     };
 

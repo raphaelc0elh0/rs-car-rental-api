@@ -30,7 +30,7 @@ describe("CreateCategoryController", () => {
       password: "admin",
     });
 
-    token = responseToken.body.token;
+    token = responseToken.body.refresh_token;
   });
 
   afterAll(async () => {
