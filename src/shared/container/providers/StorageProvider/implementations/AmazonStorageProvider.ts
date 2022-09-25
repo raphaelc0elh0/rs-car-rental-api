@@ -33,7 +33,7 @@ class AmazonStorageProvider implements IStorageProvider {
     await fs.promises.unlink(originalName);
     return file;
   }
-  async delete(file: string, folder: string): Promise<string> {
+  async delete(file: string): Promise<string> {
     await this.client.deleteObject({
       Bucket: `${process.env.S3_BUCKET}/avatar`,
       Key: file,
