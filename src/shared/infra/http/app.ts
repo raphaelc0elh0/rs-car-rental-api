@@ -1,5 +1,4 @@
 import "reflect-metadata";
-
 import express, { json } from "express";
 import swaggerUi from "swagger-ui-express";
 

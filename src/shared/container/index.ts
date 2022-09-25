@@ -17,43 +17,43 @@ import { IRentalsRepository } from "../../modules/rentals/repositories/IRentalsR
 
 import "./providers";
 
-// IUsersRepository
+// UsersRepository
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",
   PostgresUsersRepository
 );
 
-// IUsersRepository
+// UsersRepository
 container.registerSingleton<IUserTokensRepository>(
   "UserTokensRepository",
   PostgresUserTokensRepository
 );
 
-// ICarsRepository
+// CarsRepository
 container.registerSingleton<ICarsRepository>(
   "CarsRepository",
   PostgresCarsRepository
 );
 
-// ICarsImagesRepository
+// CarsImagesRepository
 container.registerSingleton<ICarsImagesRepository>(
   "CarsImagesRepository",
   PostgresCarsImagesRepository
 );
 
-// ICategoriesRepository
+// CategoriesRepository
 container.registerSingleton<ICategoriesRepository>(
   "CategoriesRepository",
   PostgresCategoriesRepository
 );
 
-// ISpecificationsRepository
+// SpecificationsRepository
 container.registerSingleton<ISpecificationsRepository>(
   "SpecificationsRepository",
   PostgresSpecificationsRepository
 );
 
-// IRentalsRepository
+// RentalsRepository
 container.registerSingleton<IRentalsRepository>(
   "RentalsRepository",
   PostgresRentalsRepository
