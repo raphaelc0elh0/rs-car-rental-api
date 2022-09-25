@@ -2,6 +2,7 @@ import "reflect-metadata";
 import express, { json } from "express";
 import swaggerUi from "swagger-ui-express";
 
+import { uploadConfig } from "../../../config/uploadConfig";
 // swagger
 import swaggerFile from "../../../swagger.json";
 // typeorm
@@ -20,6 +21,10 @@ const app = express();
 app.use(json());
 
 app.use(routes);
+
+// exposing images url
+app.use("/avatar", express.static(`${uploadConfig.tmpFolder}/avatar`));
+app.use("/cars", express.static(`${uploadConfig.tmpFolder}/cars`));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
