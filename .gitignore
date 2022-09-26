@@ -1,7 +1,9 @@
+.DS_Store
+.env
 .vscode
 node_modules
 dist
-tmp
-.DS_Store
 coverage
-.env
+tmp/*
+!tmp/.gitkeep
+ormconfig.json
