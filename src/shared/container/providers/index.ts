@@ -17,10 +17,7 @@ const useMail = {
   ethereal: container.resolve(EtherealMailProvider),
   ses: container.resolve(SesMailProvider),
 };
-container.registerInstance<IMailProvider>(
-  "MailProvider",
-  useMail[process.env.USE_MAIL]
-);
+container.registerInstance<IMailProvider>("MailProvider", useMail.ethereal);
 
 // StorageProvider
 const useStorage = {
@@ -29,5 +26,5 @@ const useStorage = {
 };
 container.registerSingleton<IStorageProvider>(
   "StorageProvider",
-  useStorage[process.env.USE_STORAGE]
+  useStorage.local
 );
